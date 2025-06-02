@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sent Emails</title>
+</head>
+<body>
+    <h1>Sent Emails</h1>
+    <ul>
+        {% for email in emails %}
+            <li><strong>To:</strong> {{ email.recipient }} | <strong>Subject:</strong> {{ email.subject }} | <strong>Sent at:</strong> {{ email.timestamp }}</li>
+        {% else %}
+            <li>No emails sent yet.</li>
+        {% endfor %}
+    </ul>
+    <p><a href="{{ url_for('main.home') }}">Back to Home</a></p>
+</body>
+</html>
