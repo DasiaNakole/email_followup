@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Follow-Up Automation Tool</title>
+</head>
+<body>
+    <h1>Send a Follow-Up Email</h1>
+    <form action="{{ url_for('main.send_email') }}" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" name="name" required><br><br>
+        <label for="email">Email:</label>
+        <input type="email" name="email" required><br><br>
+        <input type="submit" value="Send Email">
+    </form>
+</body>
+</html>
