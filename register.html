@@ -3,7 +3,7 @@
 {% block title %}Register | Email Follow-Up{% endblock %}
 
 {% block content %}
-  <div class="text-center mb-4">
+  <div class="text-center mt-5 mb-4">
     <h1>Create an Account</h1>
   </div>
 
@@ -13,30 +13,42 @@
         {{ form.hidden_tag() }}
         <div class="mb-3">
           {{ form.username.label(class="form-label") }}
-          {{ form.username(class="form-control", placeholder="Choose a username") }}
-          {% for error in form.username.errors %}
-            <div class="text-danger">{{ error }}</div>
+          {{ form.username(
+            class="form-control", 
+            placeholder="Choose a username"
+          ) }}
+          {% for err in form.username.errors %}
+            <div class="text-danger">{{ err }}</div>
           {% endfor %}
         </div>
         <div class="mb-3">
           {{ form.email.label(class="form-label") }}
-          {{ form.email(class="form-control", placeholder="you@example.com") }}
-          {% for error in form.email.errors %}
-            <div class="text-danger">{{ error }}</div>
+          {{ form.email(
+            class="form-control", 
+            placeholder="you@example.com"
+          ) }}
+          {% for err in form.email.errors %}
+            <div class="text-danger">{{ err }}</div>
           {% endfor %}
         </div>
         <div class="mb-3">
           {{ form.password.label(class="form-label") }}
-          {{ form.password(class="form-control", placeholder="Enter password") }}
-          {% for error in form.password.errors %}
-            <div class="text-danger">{{ error }}</div>
+          {{ form.password(
+            class="form-control", 
+            placeholder="Enter password"
+          ) }}
+          {% for err in form.password.errors %}
+            <div class="text-danger">{{ err }}</div>
           {% endfor %}
         </div>
         <div class="mb-3">
           {{ form.confirm_password.label(class="form-label") }}
-          {{ form.confirm_password(class="form-control", placeholder="Confirm password") }}
-          {% for error in form.confirm_password.errors %}
-            <div class="text-danger">{{ error }}</div>
+          {{ form.confirm_password(
+            class="form-control", 
+            placeholder="Confirm password"
+          ) }}
+          {% for err in form.confirm_password.errors %}
+            <div class="text-danger">{{ err }}</div>
           {% endfor %}
         </div>
         <div class="d-grid">
