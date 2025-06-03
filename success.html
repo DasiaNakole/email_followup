@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Success!</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
-        .success { color: green; font-size: 24px; }
-        a { text-decoration: none; color: blue; }
-    </style>
-</head>
-<body>
-    <h1 class="success">🎉 Email Sent Successfully!</h1>
+{% extends 'base.html' %}
+
+{% block title %}Success | Email Follow-Up{% endblock %}
+
+{% block content %}
+  <div class="text-center mt-5">
+    <h1 class="text-success mb-3">🎉 Email Sent Successfully!</h1>
     <p>Thank you for using our Email Follow-Up Tool.</p>
-    <p><a href="{{ url_for('main.home') }}">Send Another Email</a></p>
-</body>
-</html>
+    <a href="{{ url_for('main.home') }}" class="btn btn-primary mt-3">Send Another Email</a>
+  </div>
+{% endblock %}
