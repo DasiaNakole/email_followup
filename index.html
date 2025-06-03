@@ -1,27 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Email Follow-Up Automation Tool</title>
-</head>
-<body>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <ul>
-          {% for category, message in messages %}
-            <li class="{{ category }}">{{ message }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
+{% extends 'base.html' %}
 
+{% block title %}Home | Email Follow-Up{% endblock %}
+
+{% block content %}
+  <div class="text-center mb-4">
     <h1>Send a Follow-Up Email</h1>
-    <form action="{{ url_for('main.send_email') }}" method="POST">
-        <label for="name">Name:</label>
-        <input type="text" name="name" required><br><br>
-        <label for="email">Email:</label>
-        <input type="email" name="email" required><br><br>
-        <input type="submit" value="Send Email">
-    </form>
-</body>
-</html>
+    <p class="text-muted">Enter a name and email address below:</p>
+  </div>
+
+  <div class="card form-container shadow-sm">
+    <div class="card-body">
+      <form action="{{ url_for('main.send_email') }}" method="POST">
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            class="form-control"
+            placeholder="e.g., Jane Doe"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            class="form-control"
+            placeholder="e.g., jane@example.com"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Send Email</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
