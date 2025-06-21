@@ -101,6 +101,45 @@
       to   { transform: translate(-50%, -50%) rotateY(360deg); }
     }
   </style>
+  <style>
+  /* — Soft radial “space” background — */
+  body {
+    background: radial-gradient(
+      circle at center,
+      #faf9f6 0%,
+      #e8e2dd 80%,
+      #d8ccc4 100%
+    );
+    overflow: hidden; /* hide any overflow from 3D panels */
+  }
+
+  /* — Smooth transitions for parallax movement — */
+  .holo-container,
+  .orb-field {
+    transition: transform 0.3s ease-out;
+    transform-style: preserve-3d;
+  }
+
+  /* — Card hover pop & orb shadow — */
+  .card {
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .card:hover {
+    box-shadow: 0 16px 32px rgba(255,145,164,0.35);
+    transform: translateY(-4px);
+  }
+
+  /* — Button glow (if you haven’t added this yet) — */
+  .btn-primary {
+    box-shadow: 0 0 12px rgba(255,145,164,0.8);
+    transition: box-shadow 0.3s ease-in-out;
+  }
+  .btn-primary:hover,
+  .btn-primary:focus {
+    box-shadow: 0 0 20px rgba(255,145,164,1);
+  }
+</style>
+
 </head>
 <body>
   <!-- Hero Banner -->
@@ -153,5 +192,29 @@
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+AMvyTG2f0ADjF0M/pW10uWvCWPIPm49"
     crossorigin="anonymous"
   ></script>
+  <script>
+  // grab the holo panels and orb
+  const holo = document.querySelector('.holo-container');
+  const orb  = document.querySelector('.orb-field');
+
+  // how “strong” the tilt is
+  const strength = 30;
+
+  document.addEventListener('mousemove', e => {
+    // compute offset from center [-½w…+½w], [-½h…+½h]
+    const dx = (e.clientX - window.innerWidth  / 2) / strength;
+    const dy = (e.clientY - window.innerHeight / 2) / strength;
+
+    // rotate holo panels as a group
+    holo.style.transform = 
+      `translate(-50%, -50%) perspective(1400px)
+       rotateY(${ dx }deg) rotateX(${-dy}deg)`;
+
+    // give the orb a subtler, inverse tilt
+    orb.style.transform =
+      `rotateY(${-dx/2}deg) rotateX(${ dy/2 }deg)`;
+  });
+</script>
+
 </body>
 </html>
