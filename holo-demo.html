@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>3D Holographic Demo</title>
+  <style>
+    /* full-screen dark background */
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      font-family: sans-serif;
+      color: white;
+    }
+
+    /* container sets up the 3D space */
+    .holo-container {
+      position: relative;
+      width: 600px;
+      height: 400px;
+      perspective: 1200px;
+      transform-style: preserve-3d;
+      animation: spin 15s linear infinite;
+    }
+
+    /* each panel */
+    .holo-screen {
+      position: absolute;
+      width: 250px;
+      height: 150px;
+      top: 125px;  /* center vertically inside container */
+      left: 175px; /* center horizontally inside container */
+      background: rgba(0,255,255,0.1);
+      border: 2px solid rgba(0,255,255,0.6);
+      box-shadow: 0 0 30px rgba(0,255,255,0.5);
+      border-radius: 8px;
+      backdrop-filter: blur(6px);
+    }
+
+    /* position each in 3D */
+    .front { transform: translateZ(200px); }
+    .left  { transform: rotateY(-90deg) translateZ(200px); }
+    .right { transform: rotateY( 90deg) translateZ(200px); }
+
+    /* spin the whole container */
+    @keyframes spin {
+      from { transform: rotateY(0deg); }
+      to   { transform: rotateY(360deg); }
+    }
+
+    /* a little label */
+    h1 {
+      position: absolute;
+      bottom: 20px;
+      text-align: center;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="holo-container">
+    <div class="holo-screen front"></div>
+    <div class="holo-screen left"></div>
+    <div class="holo-screen right"></div>
+  </div>
+  <h1>3D Holographic Screens</h1>
+</body>
+</html>
