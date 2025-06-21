@@ -69,6 +69,40 @@
   /* make sure your main content sits above the holo */
   .page-content { position: relative; z-index: 1; }
 </style>
+    <style>
+  /* — 3D Holographic Screens — */
+  .holo-container {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 600px; height: 350px;
+    transform: translate(-50%, -50%);
+    perspective: 1600px;
+    transform-style: preserve-3d;
+    animation: holoRotate 20s infinite linear;
+    z-index: 0; /* behind your page content */
+  }
+  .holo-screen {
+    position: absolute;
+    width: 300px; height: 200px;
+    background: rgba(255,255,255,0.1);
+    border: 2px solid rgba(51,204,204,0.6);
+    box-shadow: 0 0 30px rgba(204,153,255,0.5);
+    border-radius: 8px;
+    backdrop-filter: blur(8px);
+  }
+  .screen-front { transform: rotateY(0deg)    translateZ(250px); }
+  .screen-left  { transform: rotateY(-90deg)  translateZ(250px); left: -150px; }
+  .screen-right { transform: rotateY(90deg)   translateZ(250px); right: -150px; }
+
+  @keyframes holoRotate {
+    from { transform: translate(-50%, -50%) rotateY(0deg); }
+    to   { transform: translate(-50%, -50%) rotateY(360deg); }
+  }
+
+  /* make sure your main content sits above the holo */
+  .page-content { position: relative; z-index: 1; }
+  </style>
+
 
 </head>
 <body>
@@ -102,17 +136,25 @@
       {% endif %}
     {% endwith %}
     
-<!-- Nebula orb markup -->
-<div class="orb-field">…your orb HTML…</div>
+  <!-- Nebula orb markup -->
+  <div class="orb-field">…your orb HTML…</div>
 
-<!-- 3D Holographic Screens -->
-<div class="holo-container">…</div>
-<div class="holo-screen screen-front"></div>
-  <div class="holo-screen screen-left"></div>
-  <div class="holo-screen screen-right"></div>
-</div>
+  <!-- 3D Holographic Screens (behind your page-content) -->
+  <div class="holo-container">
+    <div class="holo-screen screen-front"></div>
+    <div class="holo-screen screen-left"></div>
+    <div class="holo-screen screen-right"></div>
+  </div>
+
+  <!-- Now your normal content, raised above the holo -->
+  <div class="container page-content">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      …flash markup…
+    {% endwith %}
+
     {% block content %}{% endblock %}
   </div>
+
 
   <!-- Optional: Bootstrap JS (if you need it) -->
   <script
