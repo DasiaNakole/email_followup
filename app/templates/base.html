@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}Email Follow-Up{% endblock %}</title>
+
+  <!-- Google Font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoQCm72Yw3OZg5FQYQ8RSKfm2Ob5QWPGFN9MuhOf23Q9Ifjh"
+    crossorigin="anonymous"
+  />
+
+  <style>
+    /* Base & Background */
+    body {
+      margin: 0;
+      font-family: 'Patrick Hand', cursive;
+      background: radial-gradient(
+        circle at center,
+        #faf9f6 0%,
+        #e8e2dd 80%,
+        #d8ccc4 100%
+      );
+      overflow: hidden;
+      color: #333;
+    }
+    header.site-header {
+      background: url("{{ url_for('static', filename='img/hero_banner.png') }}") no-repeat center center;
+      background-size: cover;
+      min-height: 240px;
+    }
+
+    /* Centered Page Content */
+    .page-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 300px);
+      padding: 2rem 0;
+    }
+
+    /* 3D Holographic Screens */
+    .holo-container {
+      position: absolute;
+      top: 55%; left: 30%;
+      width: 600px; height: 350px;
+      transform: translate(-50%, -50%);
+      perspective: 1400px;
+      transform-style: preserve-3d;
+      animation: holoRotate 20s infinite linear;
+      z-index: 0;
+      transition: transform 0.3s ease-out;
+    }
+    .holo-screen {
+      position: absolute;
+      width: 280px; height: 180px;
+      top: 85px; left: 160px;
+      border-radius: 12px;
+      backdrop-filter: blur(6px);
+    }
+    .screen-front {
+      background: linear-gradient(135deg, rgba(255,209,220,0.5), rgba(255,209,220,0.2));
+      border: 2px solid rgba(255,145,164,0.7);
+      box-shadow: 0 0 40px rgba(255,145,164,0.5);
+      transform: rotateY(0deg) translateZ(220px);
+    }
+    .screen-left {
+      background: linear-gradient(135deg, rgba(160,217,255,0.5), rgba(160,217,255,0.2));
+      border: 2px solid rgba(51,204,255,0.7);
+      box-shadow: 0 0 40px rgba(51,204,255,0.5);
+      transform: rotateY(-90deg) translateZ(220px);
+      left: -140px;
+    }
+    .screen-right {
+      background: linear-gradient(135deg, rgba(212,175,55,0.5), rgba(212,175,55,0.2));
+      border: 2px solid rgba(212,175,55,0.7);
+      box-shadow: 0 0 40px rgba(212,175,55,0.5);
+      transform: rotateY(90deg) translateZ(220px);
+      right: -140px;
+    }
+    @keyframes holoRotate {
+      from { transform: translate(-50%, -50%) rotateY(0deg); }
+      to   { transform: translate(-50%, -50%) rotateY(360deg); }
+    }
+
+    /* Dreamscape Orb CSS */
+    .orb-field {
+      position: absolute;
+      top: 40%; left: 70%;
+      width: 300px; height: 300px;
+      pointer-events: none;
+      perspective: 800px;
+      transition: transform 0.3s ease-out;
+      transform-style: preserve-3d;
+    }
+    .orb-container {
+      position: relative;
+      width: 100%; height: 100%;
+      transform-style: preserve-3d;
+      animation: orbRotate 30s linear infinite;
+    }
+    .orb-core {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 120px; height: 120px;
+      background: radial-gradient(circle, rgba(255,255,255,0.8), rgba(255,209,220,0.3));
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 30px rgba(255,209,220,0.7);
+    }
+    .orb-ring {
+      position: absolute;
+      top: 50%; left: 50%;
+      border: 2px solid rgba(255,209,220,0.5);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) rotateX(75deg);
+      animation: ringRotate 20s linear infinite;
+    }
+    .ring-1 { width: 200px; height: 200px; animation-duration: 25s; }
+    .ring-2 { width: 240px; height: 240px; animation-duration: 30s; }
+    .ring-3 { width: 280px; height: 280px; animation-duration: 35s; }
+    @keyframes orbRotate { to { transform: rotateY(360deg); } }
+    @keyframes ringRotate { to { transform: translate(-50%, -50%) rotateX(75deg) rotateY(360deg); } }
+
+    .spark {
+      position: absolute;
+      width: 8px; height: 8px;
+      background: rgba(255,255,255,0.8);
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(255,255,255,0.9);
+      animation: sparkMove 6s ease-in-out infinite;
+    }
+    .sparkle-1 { top: 20%; left: 30%; animation-delay: 0s; }
+    .sparkle-2 { top: 70%; left: 25%; animation-delay: 1.5s; }
+    .sparkle-3 { top: 30%; left: 80%; animation-delay: 3s; }
+    .sparkle-4 { top: 75%; left: 65%; animation-delay: 4.5s; }
+    @keyframes sparkMove {
+      0%,100% { transform: scale(0.5); opacity: 0.6; }
+      50% { transform: scale(1.2); opacity: 1; }
+    }
+
+    /* Card hover & button glow */
+    .card {
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    .card:hover {
+      box-shadow: 0 16px 32px rgba(255,145,164,0.35);
+      transform: translateY(-4px);
+    }
+    .btn-primary {
+      box-shadow: 0 0 12px rgba(255,145,164,0.8);
+      transition: box-shadow 0.3s ease-in-out;
+    }
+    .btn-primary:hover,
+    .btn-primary:focus {
+      box-shadow: 0 0 20px rgba(255,145,164,1);
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Banner -->
+  <header class="site-header"></header>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-white shadow-sm mb-4">
+    <div class="container">
+      <a class="navbar-brand" href="{{ url_for('main.home') }}">Email Follow-Up</a>
+      <!-- nav items… -->
+    </div>
+  </nav>
+
+  <!-- 3D Holographic Screens -->
+  <div class="holo-container">
+    <div class="holo-screen screen-front"></div>
+    <div class="holo-screen screen-left"></div>
+    <div class="holo-screen screen-right"></div>
+  </div>
+
+  <!-- Dreamscape Orb -->
+  <div class="orb-field">
+    <div class="orb-container">
+      <div class="orb-core"></div>
+      <div class="orb-ring ring-1"></div>
+      <div class="orb-ring ring-2"></div>
+      <div class="orb-ring ring-3"></div>
+      <div class="spark sparkle-1"></div>
+      <div class="spark sparkle-2"></div>
+      <div class="spark sparkle-3"></div>
+      <div class="spark sparkle-4"></div>
+    </div>
+  </div>
+
+  <!-- Page Content -->
+  <div class="container page-content">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+AMvyTG2f0ADjF0M/pW10uWvCWPIPm49" crossorigin="anonymous"></script>
+
+  <!-- Parallax Script -->
+  <script>
+    const holo = document.querySelector('.holo-container');
+    const orb  = document.querySelector('.orb-field');
+    const strength = 30;
+
+    document.addEventListener('mousemove', e => {
+      const dx = (e.clientX - window.innerWidth  / 2) / strength;
+      const dy = (e.clientY - window.innerHeight / 2) / strength;
+
+      holo.style.transform =
+        `translate(-50%, -50%) perspective(1400px)
+         rotateY(${ dx }deg) rotateX(${-dy}deg)`;
+
+      orb.style.transform =
+        `rotateY(${-dx/2}deg) rotateX(${ dy/2 }deg)`;
+    });
+  </script>
+</body>
+</html>
+
+

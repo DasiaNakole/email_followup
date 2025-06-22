@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Sent Emails | Email Follow-Up{% endblock %}
+
+{% block content %}
+  <div class="mt-5 mb-4 text-center">
+    <h1>Your Sent Emails</h1>
+  </div>
+
+  {% if emails %}
+    <ul class="list-group mb-4">
+      {% for email in emails %}
+        <li 
+          class="list-group-item d-flex justify-content-between align-items-start"
+        >
+          <div class="ms-2 me-auto">
+            <div><strong>To:</strong> {{ email.recipient }}</div>
+            <div><strong>Subject:</strong> {{ email.subject }}</div>
+          </div>
+          <span 
+            class="badge bg-secondary rounded-pill"
+          >
+            {{ email.timestamp.strftime('%Y-%m-%d %H:%M') }}
+          </span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-center">No emails sent yet.</p>
+  {% endif %}
+
+  <div class="text-center">
+    <a 
+      href="{{ url_for('main.home') }}" 
+      class="btn btn-outline-primary"
+    >
+      Send Another Email
+    </a>
+  </div>
+{% endblock %}
+

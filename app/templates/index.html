@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Home | Email Follow-Up{% endblock %}
+
+{% block content %}
+  <div class="text-center mt-5 mb-4">
+    <h1>Send a Follow-Up Email</h1>
+    <p class="text-muted">Enter a name and email to send a lovely follow-up.</p>
+  </div>
+
+  <div class="card form-container shadow-sm">
+    <div class="card-body">
+      <form action="{{ url_for('main.send_email') }}" method="POST">
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            class="form-control"
+            placeholder="e.g., Jane Doe"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            class="form-control"
+            placeholder="e.g., jane@example.com"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Send Email</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+

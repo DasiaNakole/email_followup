@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Success | Email Follow-Up{% endblock %}
+
+{% block content %}
+  <div class="text-center mt-5">
+    <h1 class="text-success mb-3">🎉 Email Sent Successfully!</h1>
+    <p>Thank you for using our Email Follow-Up Tool.</p>
+    <a 
+      href="{{ url_for('main.home') }}" 
+      class="btn btn-primary mt-3"
+    >
+      Send Another Email
+    </a>
+  </div>
+{% endblock %}

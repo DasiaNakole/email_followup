@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}My Templates{% endblock %}
+
+{% block content %}
+  <h1>Your Templates</h1>
+
+  <h2>Free Templates</h2>
+  <div class="row">
+    {% for tpl in free_templates %}
+      <div class="col-md-4 mb-3">
+        <div class="card p-3">
+          <h5>{{ tpl.name }}</h5>
+          <p>{{ tpl.subject }}</p>
+          <a href="{{ url_for('main.use_template', id=tpl.id) }}"
+             class="btn btn-sm btn-outline-primary">Use</a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <h2>Premium Templates</h2>
+  <div class="row">
+    {% if pro_templates %}
+      {% for tpl in pro_templates %}
+        <div class="col-md-4 mb-3">
+          <div class="card p-3 border-warning">
+            <h5>{{ tpl.name }} <span class="badge bg-warning">Pro</span></h5>
+            <p>{{ tpl.subject }}</p>
+            <a href="{{ url_for('main.use_template', id=tpl.id) }}"
+               class="btn btn-sm btn-warning">Use</a>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="col-12 text-center my-4">
+        <p>Unlock <strong>premium templates</strong> with a <a href="{{ url_for('main.pricing') }}">Pro subscription</a>.</p>
+        <a href="{{ url_for('main.pricing') }}" class="btn btn-lg btn-warning">
+          Upgrade to Pro
+        </a>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
